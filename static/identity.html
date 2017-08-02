@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Data and Signature anchoring on Bitcoin: identity verifier</title>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Data and Signature Anchoring on Bitcoin: identity verifier"/>
+    <meta name="keywords"
+          content="data, signature, anchoring, Bitcoin, blockchain, proof, verify, timestamp, existence, integrity, identity"/>
+    <meta name="author" content="Woleet SAS"/>
+
+    <script src="node_modules/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
+
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-74211511-3', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+</head>
+
+<body>
+
+<div class="page-header" style="background: url('image/header.jpg'); margin-top: 0;">
+    <div class="container">
+        <h1 style="color: #258C90;">
+            Bitcoin identity verifier<br>
+            <small style="color: #b3b8c3;">Verify identity</small>
+        </h1>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="pubkey" placeholder="Public key" name="pubkey">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="identityURL" placeholder="Identity URL" name="identityURL">
+        </div>
+        <button type="button" class="btn btn-default" id="btnSub" onclick="checkIdentity()"
+                style="display: flex;  margin: 0 auto;">Submit
+        </button>
+    </div>
+
+    <br>
+
+    <div class="container" id="validationZone" style="display: none">
+        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        Identity status : <span id="idStatus"></span>
+        <br><br>
+        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        Certificate status : <span id="certStatus"></span>
+        <br><br>
+        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        Certificate detail :
+        <ul>
+            <li>
+                <div>Owner of the certificate: </div><span id="certDetailSubject"></span>
+            </li>
+            <li>
+                <div>Issued by: </div><span id="certDetailIssuer"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+
+    function getParameterByName(name) {
+        var match = new RegExp('[?&]' + name + '=([^&]*)', 'i').exec(window.location.search);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+
+    var identityURL = document.getElementById("identityURL");
+    var pubkey = document.getElementById("pubkey");
+
+    var idStatus = document.getElementById("idStatus");
+    var certStatus = document.getElementById("certStatus");
+
+    var validationZone = document.getElementById("validationZone");
+    var btnSub = document.getElementById("btnSub");
+
+    var certDetailSubject = document.getElementById("certDetailSubject");
+    var certDetailIssuer = document.getElementById("certDetailIssuer");
+
+    identityURL.value = getParameterByName("identityURL");
+    pubkey.value = getParameterByName("pubKey");
+
+    function formatCertField(o) {
+        return [o.CN, o.O, o.L, o.ST, o.C].join(' ')
+    }
+
+    function checkIdentity() {
+        var i = identityURL.value;
+        var k = pubkey.value;
+
+        btnSub.style.display = 'none';
+        validationZone.style.display = 'block';
+
+        woleet.signature.validateIdentity(i, k)
+            .then((v) => {
+                console.log(v);
+                idStatus.innerText = v ? 'valid' : 'invalid';
+            })
+            .catch((e) => {
+                console.error(e);
+                idStatus.innerText = 'Failed to validate';
+            });
+
+        woleet._getJSON('/cert?target=' + i)
+            .then((v) => {
+                console.log(v);
+                if (v.authorized) certStatus.innerText = 'valid';
+                else certStatus.innerText = 'invalid';
+
+                if (!v.certificates.length) return;
+
+                var cert = v.certificates[0];
+                certDetailIssuer.innerText = formatCertField(cert.issuer);
+                certDetailSubject.innerText = formatCertField(cert.subject);
+            })
+            .catch((e) => {
+                console.error(e);
+                certStatus.innerText = 'Failed to validate';
+            });
+    }
+</script>
+
+<span style="color: #b3b8c3; font-size: 10px; position: absolute; top: 5px;right: 5px;">
+    This tool is gracefully provided to <a href="https://github.com/woleet/woleet-widget">
+    the community</a> by <a href="https://woleet.io">Woleet</a>
+</span>
+
+</body>
+</html>

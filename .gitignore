@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+
+# Node module
+**/node_modules
+
+*.tgz
+*.log
+
+/dist/
