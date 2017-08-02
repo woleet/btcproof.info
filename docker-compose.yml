@@ -6,7 +6,6 @@ services:
     image: btcproof.info/static
     ports:
       - 80:80
-      - 443:443
     restart: on-failure
     depends_on:
       - cert-server
