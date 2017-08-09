@@ -57,26 +57,28 @@
 
     <br>
 
+    <div class="alert alert-danger" id="certErrorContainer" style="display: none">
+        TLS certificate error:<br>
+        <small id="certError"></small>
+    </div>
+
     <div class="container" id="validationZone" style="display: none">
+        <h4>The owner of the URL <a id="url"></a> TLS certificate</h4>
+        <h3><span class="label label-info" id="certDetailSubject"></span></h3>
+        <div>issued by <span class="label label-info" id="certDetailIssuer"></span></div>
+
+        <h4>is the owner of the bitcoin address</h4>
+        <h3><span class="label label-info" id="address"></span></h3>
+
+        <br>
+
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
         Identity status : <span id="idStatus"></span>
         <br><br>
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
         Certificate status : <span id="certStatus"></span>
-        <br><br>
-        <span class="glyphicon glyphicon-circle-arrow-right"></span>
-        Certificate detail :
-        <ul>
-            <li>
-                <div>Owner of the certificate:</div>
-                <span id="certDetailSubject"></span>
-            </li>
-            <li>
-                <div>Issued by:</div>
-                <span id="certDetailIssuer"></span>
-            </li>
-        </ul>
     </div>
+
 </div>
 
 <script>
@@ -86,58 +88,70 @@
         return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
     }
 
-    var identityURL = document.getElementById("identityURL");
-    var pubkey = document.getElementById("pubkey");
+    function getElt(id) {
+        return document.getElementById(id);
+    }
 
-    var idStatus = document.getElementById("idStatus");
-    var certStatus = document.getElementById("certStatus");
+    function getElts(list) {
+        return list.reduce((acc, key) => (acc[key] = getElt(key), acc), {});
+    }
 
-    var validationZone = document.getElementById("validationZone");
-    var btnSub = document.getElementById("btnSub");
+    var elts = getElts(["identityURL", "pubkey", "idStatus", "certStatus",
+        "validationZone", "btnSub", "certDetailSubject", "certDetailIssuer",
+        "address", "url", "certErrorContainer", "certError"]);
 
-    var certDetailSubject = document.getElementById("certDetailSubject");
-    var certDetailIssuer = document.getElementById("certDetailIssuer");
-
-    identityURL.value = getParameterByName("identityURL");
-    pubkey.value = getParameterByName("pubKey");
+    elts.identityURL.value = getParameterByName("identityURL");
+    elts.pubkey.value = getParameterByName("pubKey");
 
     function formatCertField(o) {
         return [o.CN, o.O, o.L, o.ST, o.C].join(' ')
     }
 
     function checkIdentity() {
-        var i = identityURL.value;
-        var k = pubkey.value;
+        var i = elts.identityURL.value;
+        var k = elts.pubkey.value;
 
-        btnSub.style.display = 'none';
-        validationZone.style.display = 'block';
+        elts.btnSub.style.display = 'none';
 
-        woleet.signature.validateIdentity(i, k)
-            .then((v) => {
-                console.log(v);
-                idStatus.innerText = v ? 'valid' : 'invalid';
+        Promise.all([
+            woleet.signature.validateIdentity(i, k)
+                .catch((e) => {
+                    throw 'Failed to validate identity';
+                }),
+            woleet._getJSON('/cert?target=' + i)
+                .catch((e) => {
+                    throw 'Failed to validate certificate';
+                })
+        ])
+            .then((arr) => {
+                var vIdentity = arr[0];
+                if (!vIdentity.error) {
+                    elts.validationZone.style.display = 'block';
+                    console.log(vIdentity);
+                    elts.idStatus.innerText = vIdentity ? 'valid' : 'invalid';
+                    elts.address.innerText = k;
+                    elts.url.innerText = i;
+                    elts.url.setAttribute('href', i);
+                }
+                return arr[1];
+            })
+            .then((vCertificate) => {
+                console.log(vCertificate);
+                if (!vCertificate.error) {
+                    if (vCertificate.authorized) elts.certStatus.innerText = 'valid';
+                    else elts.certStatus.innerText = 'invalid';
+
+                    if (!vCertificate.certificates.length) return;
+
+                    var cert = vCertificate.certificates[0];
+                    elts.certDetailIssuer.innerText = formatCertField(cert.issuer);
+                    elts.certDetailSubject.innerText = formatCertField(cert.subject);
+                }
             })
             .catch((e) => {
-                console.error(e);
-                idStatus.innerText = 'Failed to validate';
-            });
-
-        woleet._getJSON('/cert?target=' + i)
-            .then((v) => {
-                console.log(v);
-                if (v.authorized) certStatus.innerText = 'valid';
-                else certStatus.innerText = 'invalid';
-
-                if (!v.certificates.length) return;
-
-                var cert = v.certificates[0];
-                certDetailIssuer.innerText = formatCertField(cert.issuer);
-                certDetailSubject.innerText = formatCertField(cert.subject);
+                elts.certErrorContainer.style.display = 'block';
+                elts.certError.innerText = e;
             })
-            .catch((e) => {
-                console.error(e);
-                certStatus.innerText = 'Failed to validate';
-            });
     }
 </script>
 
