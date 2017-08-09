@@ -69,9 +69,9 @@
 
         <h4>is the owner of the bitcoin address</h4>
         <h3><span class="label label-info" id="address"></span></h3>
+    </div>
 
-        <br>
-
+    <div class="container" id="statusZone" style="display: none">
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
         Identity status : <span id="idStatus"></span>
         <br><br>
@@ -97,7 +97,7 @@
     }
 
     var elts = getElts(["identityURL", "pubkey", "idStatus", "certStatus",
-        "validationZone", "btnSub", "certDetailSubject", "certDetailIssuer",
+        "validationZone", "statusZone", "btnSub", "certDetailSubject", "certDetailIssuer",
         "address", "url", "certErrorContainer", "certError"]);
 
     elts.identityURL.value = getParameterByName("identityURL");
@@ -116,26 +116,33 @@
         Promise.all([
             woleet.signature.validateIdentity(i, k)
                 .catch((e) => {
-                    throw 'Failed to validate identity';
+                    return {error: 'Failed to validate identity'};
                 }),
             woleet._getJSON('/cert?target=' + i)
                 .catch((e) => {
-                    throw 'Failed to validate certificate';
+                    return {error: 'Failed to validate certificate'};
                 })
         ])
             .then((arr) => {
                 var vIdentity = arr[0];
-                if (!vIdentity.error) {
+                var vCertificate = arr[1];
+
+                elts.statusZone.style.display = 'block';
+
+                if(!vCertificate.error && !vIdentity.error) {
                     elts.validationZone.style.display = 'block';
+                }
+
+                if (!vIdentity.error) {
                     console.log(vIdentity);
                     elts.idStatus.innerText = vIdentity ? 'valid' : 'invalid';
                     elts.address.innerText = k;
                     elts.url.innerText = i;
                     elts.url.setAttribute('href', i);
+                } else {
+                    elts.idStatus.innerText = 'invalid: ' + vIdentity.error;
                 }
-                return arr[1];
-            })
-            .then((vCertificate) => {
+
                 console.log(vCertificate);
                 if (!vCertificate.error) {
                     if (vCertificate.authorized) elts.certStatus.innerText = 'valid';
@@ -146,6 +153,8 @@
                     var cert = vCertificate.certificates[0];
                     elts.certDetailIssuer.innerText = formatCertField(cert.issuer);
                     elts.certDetailSubject.innerText = formatCertField(cert.subject);
+                } else {
+                    elts.certStatus.innerText = 'invalid: ' + vCertificate.error;
                 }
             })
             .catch((e) => {
