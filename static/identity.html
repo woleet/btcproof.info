@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Data and Signature anchoring on Bitcoin: identity verifier</title>
+    <title>Bitcoin identity verifier</title>
 
     <meta charset="UTF-8">
-    <meta name="description" content="Data and Signature Anchoring on Bitcoin: identity verifier"/>
+    <meta name="description" content="Verify the identity of owners of Bitcoin addresses"/>
     <meta name="keywords"
           content="data, signature, anchoring, Bitcoin, blockchain, proof, verify, timestamp, existence, integrity, identity"/>
     <meta name="author" content="Woleet SAS"/>
@@ -15,23 +15,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-74211511-3', 'auto');
-        ga('send', 'pageview');
-
-    </script>
 </head>
 
 <body>
@@ -40,21 +23,35 @@
     <div class="container">
         <h1 style="color: #258C90;">
             Bitcoin identity verifier<br>
-            <small style="color: #b3b8c3;">Verify identity</small>
+            <small style="color: #b3b8c3;">Verify the identity of owners of Bitcoin addresses</small>
         </h1>
     </div>
 </div>
 
 <div class="container">
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    verify the <strong>ownership</strong> of a Bitcoin address<br>
+    <span style="font-size: 12px;">by using the owner's identity URL (see <a
+            href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to Chainpoint 1.x</span>
+    <br><br>
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    get the <strong>identity</strong> of the owner of a Bitcoin address<br>
+    <span style="font-size: 12px;">by extracting it from the TLS certificate of the owner's identity URL</span>
+</div>
+
+<br>
+
+<div class="container">
     <div>
         <div class="form-group">
-            <input type="text" class="form-control" id="pubkey" placeholder="Public key" name="pubkey">
+            <input type="text" class="form-control" id="pubkey" placeholder="Bitcoin address" name="pubkey">
         </div>
         <div class="form-group">
             <input type="text" class="form-control" id="identityURL" placeholder="Identity URL" name="identityURL">
         </div>
         <button type="button" class="btn btn-default" id="btnSub" onclick="checkIdentity()"
-                style="display: flex;  margin: 0 auto;">Submit
+                style="display: flex;  margin: 0 auto;">
+            Submit
         </button>
     </div>
 
@@ -71,10 +68,12 @@
         Certificate detail :
         <ul>
             <li>
-                <div>Owner of the certificate: </div><span id="certDetailSubject"></span>
+                <div>Owner of the certificate:</div>
+                <span id="certDetailSubject"></span>
             </li>
             <li>
-                <div>Issued by: </div><span id="certDetailIssuer"></span>
+                <div>Issued by:</div>
+                <span id="certDetailIssuer"></span>
             </li>
         </ul>
     </div>
@@ -143,7 +142,7 @@
 </script>
 
 <span style="color: #b3b8c3; font-size: 10px; position: absolute; top: 5px;right: 5px;">
-    This tool is gracefully provided to <a href="https://github.com/woleet/woleet-widget">
+    This tool is gracefully provided to <a href="https://github.com/woleet/btcproof.info">
     the community</a> by <a href="https://woleet.io">Woleet</a>
 </span>
 
