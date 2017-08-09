@@ -111,7 +111,9 @@
         var i = elts.identityURL.value;
         var k = elts.pubkey.value;
 
-        elts.btnSub.style.display = 'none';
+        elts.statusZone.style.display = 'none';
+        elts.validationZone.style.display = 'none';
+        elts.certErrorContainer.style.display = 'none';
 
         Promise.all([
             woleet.signature.validateIdentity(i, k)
