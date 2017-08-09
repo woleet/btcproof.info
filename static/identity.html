@@ -62,7 +62,7 @@
     </div>
 
     <div class="container" id="validationZone" style="display: none">
-        <h4>The owner of the URL <a id="url"></a> TLS certificate</h4>
+        <h4>The owner of <a id="url"></a>'s TLS certificate</h4>
         <h3><span class="label label-info" id="certDetailSubject"></span></h3>
         <div>issued by <span class="label label-info" id="certDetailIssuer"></span></div>
 
@@ -72,10 +72,10 @@
 
     <div class="container" id="statusZone" style="display: none">
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
-        Identity status : <span id="idStatus"></span>
+        Identity status: <span id="idStatus"></span>
         <br><br>
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
-        Certificate status : <span id="certStatus"></span>
+        Certificate status: <span id="certStatus"></span>
     </div>
 
 </div>
@@ -128,14 +128,13 @@
                 var vIdentity = arr[0];
                 var vCertificate = arr[1];
 
-                elts.statusZone.style.display = 'block';
-
-                if(!vCertificate.error && !vIdentity.error) {
+                if (!vCertificate.error && !vIdentity.error)
                     elts.validationZone.style.display = 'block';
-                }
+                else
+                    elts.statusZone.style.display = 'block';
 
+                console.log(vIdentity);
                 if (!vIdentity.error) {
-                    console.log(vIdentity);
                     elts.idStatus.innerText = vIdentity ? 'valid' : 'invalid';
                     elts.address.innerText = k;
                     elts.url.innerText = i;
