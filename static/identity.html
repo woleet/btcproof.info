@@ -4,7 +4,7 @@
     <title>Bitcoin identity verifier</title>
 
     <meta charset="UTF-8">
-    <meta name="description" content="Verify the identity of owners of Bitcoin addresses"/>
+    <meta name="description" content="Verify the identity of owners of bitcoin addresses"/>
     <meta name="keywords"
           content="data, signature, anchoring, Bitcoin, blockchain, proof, verify, timestamp, existence, integrity, identity"/>
     <meta name="author" content="Woleet SAS"/>
@@ -96,10 +96,10 @@
 
     <div class="container" id="statusZone" style="display: none">
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
-        Identity status: <span id="idStatus"></span>
+        Bitcoin address ownership: <span id="idStatus"></span>
         <br><br>
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
-        Certificate status: <span id="certStatus"></span>
+        Identity URL certificate: <span id="certStatus"></span>
     </div>
 
 </div>
@@ -141,36 +141,46 @@
         Promise.all([
             woleet.signature.validateIdentity(i, k)
                 .catch((e) => {
-                    return {error: 'Failed to validate identity'};
+                    return {error: 'failed to verify the ownership of the bitcoin address by the identity URL'};
                 }),
             woleet._getJSON('/cert?target=' + i)
                 .catch((e) => {
-                    return {error: 'Failed to validate certificate'};
+                    return {error: 'failed to verify the TLS certificate'};
                 })
         ])
             .then((arr) => {
-                var vIdentity = arr[0];
+                var vIdentityURL = arr[0];
                 var vCertificate = arr[1];
 
-                if (!vCertificate.error && !vIdentity.error)
+                if (!vCertificate.error && !vIdentityURL.error)
                     elts.validationZone.style.display = 'block';
                 else
                     elts.statusZone.style.display = 'block';
 
-                console.log(vIdentity);
-                if (!vIdentity.error) {
-                    elts.idStatus.innerText = vIdentity ? 'valid' : 'invalid';
+                if (!vIdentityURL.error) {
+                    if (vIdentityURL) {
+                        elts.idStatus.innerText = 'valid';
+                        elts.idStatus.style = 'color: green';
+                    } else {
+                        elts.idStatus.innerText = 'invalid';
+                        elts.idStatus.style = 'color: red';
+                    }
                     elts.address.innerText = k;
                     elts.url.innerText = i;
                     elts.url.setAttribute('href', i);
                 } else {
-                    elts.idStatus.innerText = 'invalid: ' + vIdentity.error;
+                    elts.idStatus.innerText = 'invalid: ' + vIdentityURL.error;
+                    elts.idStatus.style = 'color: red';
                 }
 
-                console.log(vCertificate);
                 if (!vCertificate.error) {
-                    if (vCertificate.authorized) elts.certStatus.innerText = 'valid';
-                    else elts.certStatus.innerText = 'invalid';
+                    if (vCertificate.authorized) {
+                        elts.certStatus.innerText = 'valid';
+                        elts.certStatus.style = 'color: green';
+                    } else {
+                        elts.certStatus.innerText = 'invalid';
+                        elts.certStatus.style = 'color: red';
+                    }
 
                     if (!vCertificate.certificates.length) return;
 
@@ -179,6 +189,7 @@
                     elts.certDetailSubject.innerText = formatCertField(cert.subject);
                 } else {
                     elts.certStatus.innerText = 'invalid: ' + vCertificate.error;
+                    elts.certStatus.style = 'color: red';
                 }
             })
             .catch((e) => {
