@@ -14,7 +14,8 @@
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <!-- Custom styles for this template -->
+    <link href="css/custom.css" rel="stylesheet">
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
@@ -35,11 +36,12 @@
 
 <body>
 
-<div class="page-header" style="background: url('image/header.jpg'); margin-top: 0;">
+<div class="page-header">
     <div class="container">
-        <h1 style="color: #258C90;">
+        <img src="image/logo-woleet.png"/>
+        <h1 class="btcproof-title">
             Bitcoin identity verifier<br>
-            <small style="color: #b3b8c3;">Verify the identity of owners of Bitcoin addresses</small>
+            <small>Verify Bitcoin addresses ownership</small>
         </h1>
     </div>
 </div>
@@ -48,13 +50,13 @@
 
     <span class="glyphicon glyphicon-circle-arrow-right"></span>
     verify the <strong>ownership</strong> of a Bitcoin address<br>
-    <span style="font-size: 12px;">by using the owner's identity URL (see <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to Chainpoint 1.x)</span>
+    <span class="btcproof-text">by using the owner's identity URL (see <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to Chainpoint 1.x)</span>
 
     <br><br>
 
     <span class="glyphicon glyphicon-circle-arrow-right"></span>
     get the <strong>identity</strong> of the owner of a Bitcoin address<br>
-    <span style="font-size: 12px;">by extracting it from the TLS certificate of the owner's identity URL</span>
+    <span class="btcproof-text">by extracting it from the TLS certificate of the owner's identity URL</span>
 
     <br><br>
 
@@ -104,105 +106,14 @@
 
 </div>
 
-<script>
+<script src="js/woleet-identity.js"></script>
 
-    function getParameterByName(name) {
-        var match = new RegExp('[?&]' + name + '=([^&]*)', 'i').exec(window.location.search);
-        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-    }
-
-    function getElt(id) {
-        return document.getElementById(id);
-    }
-
-    function getElts(list) {
-        return list.reduce((acc, key) => (acc[key] = getElt(key), acc), {});
-    }
-
-    var elts = getElts(["identityURL", "pubKey", "idStatus", "certStatus",
-        "validationZone", "statusZone", "btnSub", "certDetailSubject", "certDetailIssuer",
-        "address", "url", "certErrorContainer", "certError"]);
-
-    elts.identityURL.value = getParameterByName("identityURL");
-    elts.pubKey.value = getParameterByName("pubKey");
-
-    function formatCertField(o) {
-        return [o.CN, o.O, o.L, o.ST, o.C].join(' ')
-    }
-
-    function checkIdentity() {
-        var i = elts.identityURL.value;
-        var k = elts.pubKey.value;
-
-        elts.statusZone.style.display = 'none';
-        elts.validationZone.style.display = 'none';
-        elts.certErrorContainer.style.display = 'none';
-
-        Promise.all([
-            woleet.signature.validateIdentity(i, k)
-                .catch((e) => {
-                    return {error: 'failed to verify the ownership of the bitcoin address by the identity URL'};
-                }),
-            woleet._getJSON('/cert?target=' + i)
-                .catch((e) => {
-                    return {error: 'failed to verify the TLS certificate'};
-                })
-        ])
-            .then((arr) => {
-                var vIdentityURL = arr[0];
-                var vCertificate = arr[1];
-
-                if (!vCertificate.error && !vIdentityURL.error)
-                    elts.validationZone.style.display = 'block';
-                else
-                    elts.statusZone.style.display = 'block';
-
-                if (!vIdentityURL.error) {
-                    if (vIdentityURL) {
-                        elts.idStatus.innerText = 'valid';
-                        elts.idStatus.style = 'color: green';
-                    } else {
-                        elts.idStatus.innerText = 'invalid';
-                        elts.idStatus.style = 'color: red';
-                    }
-                    elts.address.innerText = k;
-                    elts.url.innerText = i;
-                    elts.url.setAttribute('href', i);
-                } else {
-                    elts.idStatus.innerText = 'invalid: ' + vIdentityURL.error;
-                    elts.idStatus.style = 'color: red';
-                }
-
-                if (!vCertificate.error) {
-                    if (vCertificate.authorized) {
-                        elts.certStatus.innerText = 'valid';
-                        elts.certStatus.style = 'color: green';
-                    } else {
-                        elts.certStatus.innerText = 'invalid';
-                        elts.certStatus.style = 'color: red';
-                    }
-
-                    if (!vCertificate.certificates.length) return;
-
-                    var cert = vCertificate.certificates[0];
-                    elts.certDetailIssuer.innerText = formatCertField(cert.issuer);
-                    elts.certDetailSubject.innerText = formatCertField(cert.subject);
-                } else {
-                    elts.certStatus.innerText = 'invalid: ' + vCertificate.error;
-                    elts.certStatus.style = 'color: red';
-                }
-            })
-            .catch((e) => {
-                elts.certErrorContainer.style.display = 'block';
-                elts.certError.innerText = e;
-            })
-    }
-</script>
-
-<span style="color: #b3b8c3; font-size: 10px; position: absolute; top: 5px;right: 5px;">
-    This tool is gracefully provided to <a href="https://github.com/woleet/btcproof.info">
-    the community</a> by <a href="https://woleet.io">Woleet</a>
-</span>
-
+<a href="https://github.com/woleet/btcproof.info" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">This tool is gracefully provided to <a href="https://github.com/woleet/btcproof.info">
+            the community</a> by <a href="https://woleet.io">Woleet</a></p>
+    </div>
+</footer>
 </body>
 </html>

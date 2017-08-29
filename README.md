@@ -16,3 +16,14 @@ This verification includes:
 
 [btcproof.info](https://btcproof.info) demonstrates the use of [woleet-weblibs](https://github.com/woleet/woleet-weblibs) 
 and [woleet-widget](https://github.com/woleet/woleet-widget) open source tools.
+
+# Building [btcproof.info](https://btcproof.info)
+[btcproof.info](https://btcproof.info) use Docker and node, make sure you have Docker installed on you environment
+Type `./build.sh` on the project's root to:
+Then, type `docker-compose build` 
+Finally run server on localhost with `docker-compose up` 
+
+[btcproof.info](https://btcproof.info) should now be available on localhost (port 80)
+
+Any feeback appreciated !
+Donation address : 
