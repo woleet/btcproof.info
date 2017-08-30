@@ -5,8 +5,7 @@
 
     <meta charset="UTF-8">
     <meta name="description" content="Verify ownership and identity of Bitcoin addresses"/>
-    <meta name="keywords"
-          content="data, signature, anchoring, Bitcoin, blockchain, proof, verify, timestamp, existence, integrity, identity"/>
+    <meta name="keywords" content="data, signature, anchoring, Bitcoin, blockchain, proof, verify, timestamp, existence, integrity, identity"/>
     <meta name="author" content="Woleet SAS"/>
 
     <script src="node_modules/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
@@ -14,6 +13,7 @@
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <!-- Custom styles for this template -->
     <link href="css/custom.css" rel="stylesheet">
     <script>
@@ -43,10 +43,14 @@
             Bitcoin identity verifier<br>
             <small>Verify ownership and identity of Bitcoin addresses</small>
         </h1>
+        <small><a href="/proof">< proof verification page</a></small>
     </div>
 </div>
 
+
 <div class="container">
+
+
     <div>
         <div class="form-group">
             <input type="text" class="form-control" id="pubKey" placeholder="Bitcoin address" name="pubKey">
@@ -71,10 +75,6 @@
     <span class="glyphicon glyphicon-circle-arrow-right"></span>
     get the <strong>identity</strong> of the owner of a Bitcoin address<br>
     <span class="btcproof-text">by extracting it from the TLS certificate of the owner's identity URL</span>
-
-    <br><br>
-
-    <small><a href="/proof">< proof verification page</a></small>
 
 </div>
 
@@ -101,7 +101,7 @@
         Bitcoin address ownership: <span id="idStatus"></span>
         <br><br>
         <span class="glyphicon glyphicon-circle-arrow-right"></span>
-        Identity URL certificate: <span id="certStatus"></span>
+        Owner identity: <span id="certStatus"></span>
     </div>
 
 </div>

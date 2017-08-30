@@ -37,7 +37,7 @@ function getParameterByName(name) {
                 }),
             woleet._getJSON('/cert?target=' + i)
                 .catch((e) => {
-                    return {error: 'failed to verify the TLS certificate'};
+                    return {error: 'failed to verify the TLS certificate of the identity URL'};
                 })
         ])
             .then((arr) => {
