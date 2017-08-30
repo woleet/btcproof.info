@@ -32,9 +32,13 @@ body {
 }
 
 .btcproof-title{
-  color: #258C90;
+
 }
 
 .btcproof-text{
   font-size: 12px;
+}
+
+.btcproof-widget{
+  text-align: center;
 }
