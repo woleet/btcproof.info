@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cd static
-npm i --silent
+npm update --silent
 cd ..
 
 docker-compose build

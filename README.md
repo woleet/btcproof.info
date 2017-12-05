@@ -2,8 +2,8 @@
 
 This repository is the public git for the [btcproof.info](https://btcproof.info) web site.
 
-[btcproof.info](https://btcproof.info) is a simple static app embedding Woleet's widget. This widget allows you to:
-- **verify** the **existence** and get the **timestamp** of a **file** anchored in the Bitcoin blockchain using any [Chainpoint 1.x](http://www.chainpoint.org/#v1x) compatible tool.</li>
+[btcproof.info](https://btcproof.info) is a simple static web app embedding Woleet's widget. This widget allows you to:
+- **verify** the **existence** and get the **timestamp** of a **file** anchored in the Bitcoin blockchain using any [Chainpoint](http://www.chainpoint.org/) compatible tool.</li>
 - **verify** the **existence**, the **validity** and get the **timestamp** of a **signature** anchored in the Bitcoin blockchain using Woleet's <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to [Chainpoint 1.x](http://www.chainpoint.org/#v1x) (the signee identity is also verified if provided)
 
 [btcproof.info](https://btcproof.info) also provides a service to **verify the identity of signees**.
