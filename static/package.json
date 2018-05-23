@@ -9,7 +9,7 @@
   "author": "Woleet SAS",
   "license": "ISC",
   "dependencies": {
-    "@woleet/woleet-weblibs": "^0.5.1",
-    "@woleet/woleet-widget": "^0.6.0"
+    "@woleet/woleet-weblibs": "^0.5.2",
+    "@woleet/woleet-widget": "^0.6.1"
   }
 }
