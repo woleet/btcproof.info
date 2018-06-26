@@ -1,3 +1,5 @@
 # Client docker ignone
 
-# node_modules
+node_modules
+!node_modules/@woleet/woleet-weblibs/dist
+!node_modules/@woleet/woleet-widget/dist
