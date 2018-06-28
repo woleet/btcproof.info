@@ -24,7 +24,20 @@ Node.js and Docker need to be installed on your system.
 
 Clone the project or download its archive and uncompress it.
 
+## Build the server
+
+```shell
+$ cd btcproof.info/
+$ ./build.sh
+```
+
 ## Run the server
 
+```shell
 $ cd btcproof.info/
 $ ./start.sh
+```
+
+## Test the server
+
+http://127.0.0.1
