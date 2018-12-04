@@ -6,7 +6,7 @@ services:
     image: btcproof.info/static
     ports:
       - 80:80
-    restart: on-failure
+    restart: always
     depends_on:
       - cert-server
     networks:
@@ -14,7 +14,7 @@ services:
   cert-server:
     build: ./cert-server
     image: btcproof.info/cert-server
-    restart: on-failure
+    restart: always
     networks:
       - client-server
 networks:
