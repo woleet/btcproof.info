@@ -9,6 +9,7 @@
   "author": "Woleet SAS",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.2.3",
     "@woleet/woleet-weblibs": "^0.6.3",
     "@woleet/woleet-widget": "^0.7.2"
   }
