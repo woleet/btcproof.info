@@ -1,11 +1,8 @@
 {
   "name": "btcproof.info",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "btcproof.info demonstrates the use of woleet-weblibs and woleet-widget open source tools",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Woleet SAS",
   "license": "ISC",
   "dependencies": {
