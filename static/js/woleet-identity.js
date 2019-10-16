@@ -22,7 +22,30 @@ function formatCertField(o) {
   return [o.CN, o.O, o.L, o.ST, o.C].join(' ')
 }
 
+function validURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
+
+function validBitcoinAddress(str) {
+  var pattern = new RegExp('^[a-zA-Z0-9]{34}$'); // fragment locator
+  return !!pattern.test(str);
+}
+
+function canCheckIdentity() {
+  return validURL(elts.identityURL.value) && validBitcoinAddress(elts.pubKey.value);
+}
+
 function checkIdentity() {
+
+  if (!canCheckIdentity())
+    return;
+
   let i = elts.identityURL.value;
   let k = elts.pubKey.value;
 
@@ -32,21 +55,24 @@ function checkIdentity() {
 
   Promise.all([
     woleet.signature.validateIdentity(i, k)
-      .catch((e) => ({ error: 'failed to verify the ownership of the bitcoin address by the identity URL' })),
+      .catch((e) => ({
+        valid: false,
+        reason: 'failed to verify the ownership of the bitcoin address by the identity URL'
+      })),
     woleet.getJSON('/cert?target=' + i)
-      .catch((e) => ({ error: 'failed to verify the TLS certificate of the identity URL' }))
+      .catch((e) => ({ error: 'failed to get the TLS certificate of the identity URL' }))
   ])
     .then((arr) => {
-      let vIdentityURL = arr[0];
-      let vCertificate = arr[1] || { error: 'failed to get the TLS certificate of the identity URL' };
+      let vIdentity = arr[0];
+      let vCertificate = arr[1];
 
-      if (!vCertificate.error && !vIdentityURL.error)
+      if (!vCertificate.error && vIdentity.valid)
         elts.validationZone.style.display = 'block';
       else
         elts.statusZone.style.display = 'block';
 
-      if (!vIdentityURL.error) {
-        if (vIdentityURL) {
+      if (vIdentity.valid) {
+        if (vIdentity) {
           elts.idStatus.innerText = 'valid';
           elts.idStatus.style = 'color: green';
         } else {
@@ -57,7 +83,7 @@ function checkIdentity() {
         elts.url.innerText = i;
         elts.url.setAttribute('href', i);
       } else {
-        elts.idStatus.innerText = 'invalid: ' + vIdentityURL.error;
+        elts.idStatus.innerText = 'invalid: ' + vIdentity.reason;
         elts.idStatus.style = 'color: red';
       }
 

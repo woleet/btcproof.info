@@ -5,9 +5,9 @@
   <title>Bitcoin identity verifier</title>
 
   <meta charset="UTF-8">
-  <meta name="description" content="Verify ownership and identity of Bitcoin addresses" />
-  <meta name="keywords" content="verify,Bitcoin,address,ownership,identity" />
-  <meta name="author" content="Woleet SAS" />
+  <meta name="description" content="Verify ownership and identity of Bitcoin addresses"/>
+  <meta name="keywords" content="verify,Bitcoin,address,ownership,identity"/>
+  <meta name="author" content="Woleet SAS"/>
 
   <script src="node_modules/@woleet/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
 
@@ -39,110 +39,113 @@
 
 <body>
 
-  <div class="page-header">
-    <div class="container">
-      <img src="image/logo-woleet.png" />
-      <h1 style="color: #258C90;">
-        Bitcoin identity verifier
-        <br>
-        <small>Verify ownership and identity of Bitcoin addresses</small>
-      </h1>
-      <small>
-        <a href="/proof">
-          < proof verification page</a>
-      </small>
-    </div>
-  </div>
-
+<div class="page-header">
   <div class="container">
+    <img src="image/logo-woleet.png"/>
+    <h1 style="color: #258C90;">
+      Bitcoin identity verifier
+      <br>
+      <small>Verify ownership and identity of Bitcoin addresses</small>
+    </h1>
+    <small>
+      <a href="/proof">
+        < proof verification page</a>
+    </small>
+  </div>
+</div>
 
-    <div>
-      <div class="form-group">
-        <input type="text" class="form-control" id="pubKey" placeholder="Bitcoin address" name="pubKey">
-      </div>
-      <div class="form-group">
-        <input type="text" class="form-control" id="identityURL" placeholder="Identity URL" name="identityURL">
-      </div>
-      <button type="button" class="btn btn-default" id="btnSub" onclick="checkIdentity()">
-        Submit
-      </button>
+<div class="container">
+
+  <div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="pubKey" placeholder="Bitcoin address" name="pubKey">
     </div>
-
-    <br>
-
-    <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    verify the
-    <strong>ownership</strong> of a Bitcoin address
-    <br>
-    <span class="btcproof-text">by using the owner's identity URL (see
-      <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a> extension to Chainpoint 1.x)</span>
-
-    <br>
-    <br>
-
-    <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    get the
-    <strong>identity</strong> of the owner of a Bitcoin address
-    <br>
-    <span class="btcproof-text">by extracting it from the TLS certificate of the owner's identity URL</span>
-
+    <div class="form-group">
+      <input type="text" class="form-control" id="identityURL" placeholder="Identity URL" name="identityURL">
+    </div>
+    <button type="button" class="btn btn-default" id="btnSub" onclick="checkIdentity()">
+      Check identity
+    </button>
   </div>
 
   <br>
 
-  <div class="container">
+  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+  verify the
+  <strong>ownership</strong> of a Bitcoin address
+  <br>
+  <span class="btcproof-text">by using the owner's identity URL (see
+    <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a>
+    extension to Chainpoint 1.x)
+  </span>
 
-    <div class="alert alert-danger" id="certErrorContainer" style="display: none">
-      TLS certificate error:
-      <br>
-      <small id="certError"></small>
-    </div>
+  <br>
+  <br>
 
-    <div class="container" id="validationZone" style="display: none">
-      <h4>The owner of
-        <a id="url"></a>'s TLS certificate</h4>
-      <h3>
-        <span class="label label-info" id="certDetailSubject"></span>
-      </h3>
-      <div>issued by
-        <span class="label label-info" id="certDetailIssuer"></span>
-      </div>
+  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+  get the
+  <strong>identity</strong> of the owner of a Bitcoin address
+  <br>
+  <span class="btcproof-text">by extracting it from the TLS certificate of the owner's identity URL</span>
 
-      <h4>is the owner of the bitcoin address</h4>
-      <h3>
-        <span class="label label-info" id="address"></span>
-      </h3>
-    </div>
+</div>
 
-    <div class="container" id="statusZone" style="display: none">
-      <span class="glyphicon glyphicon-circle-arrow-right"></span>
-      Bitcoin address ownership:
-      <span id="idStatus"></span>
-      <br>
-      <br>
-      <span class="glyphicon glyphicon-circle-arrow-right"></span>
-      Owner identity:
-      <span id="certStatus"></span>
-    </div>
+<br>
 
+<div class="container">
+
+  <div class="alert alert-danger" id="certErrorContainer" style="display: none">
+    TLS certificate error:
+    <br>
+    <small id="certError"></small>
   </div>
 
-  <script src="js/woleet-identity.js"></script>
-
-  <a href="https://github.com/woleet/btcproof.info" target="_blank">
-    <img style="position: absolute; top: 0; right: 0; border: 0;"
-      src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-      alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
-  </a>
-  <footer class="footer">
-    <div class="container">
-      <p class="text-muted" align="center">This tool is gracefully provided to
-        <a href="https://github.com/woleet/btcproof.info">
-          the community</a> by
-        <a href="https://woleet.io">Woleet</a>
-      </p>
+  <div class="container" id="validationZone" style="display: none">
+    <h4>The owner of
+      <a id="url"></a>'s TLS certificate</h4>
+    <h3>
+      <span class="label label-info" id="certDetailSubject"></span>
+    </h3>
+    <div>issued by
+      <span class="label label-info" id="certDetailIssuer"></span>
     </div>
-  </footer>
+
+    <h4>is the owner of the bitcoin address</h4>
+    <h3>
+      <span class="label label-info" id="address"></span>
+    </h3>
+  </div>
+
+  <div class="container" id="statusZone" style="display: none">
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    Bitcoin address ownership:
+    <span id="idStatus"></span>
+    <br>
+    <br>
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    Owner identity:
+    <span id="certStatus"></span>
+  </div>
+
+</div>
+
+<script src="js/woleet-identity.js"></script>
+
+<a href="https://github.com/woleet/btcproof.info" target="_blank">
+  <img style="position: absolute; top: 0; right: 0; border: 0;"
+    src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
+    alt="Fork me on GitHub"
+    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+</a>
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted" align="center">This tool is gracefully provided to
+      <a href="https://github.com/woleet/btcproof.info">
+        the community</a> by
+      <a href="https://woleet.io">Woleet</a>
+    </p>
+  </div>
+</footer>
 </body>
 
 </html>
