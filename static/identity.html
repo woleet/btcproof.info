@@ -58,10 +58,10 @@
 
   <div>
     <div class="form-group">
-      <input type="text" class="form-control" id="pubKey" placeholder="Bitcoin address" name="pubKey">
+      <input type="text" class="form-control" id="pubKey" oninput="updateBtnSub()" placeholder="Bitcoin address" name="pubKey">
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" id="identityURL" placeholder="Identity URL" name="identityURL">
+      <input type="text" class="form-control" id="identityURL" oninput="updateBtnSub()" placeholder="Identity URL" name="identityURL">
     </div>
     <button type="button" class="btn btn-default" id="btnSub" onclick="checkIdentity()">
       Check identity

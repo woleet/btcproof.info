@@ -17,24 +17,29 @@ let elts = getElts(["identityURL", "pubKey", "idStatus", "certStatus",
 
 elts.identityURL.value = getParameterByName("identityURL");
 elts.pubKey.value = getParameterByName("pubKey");
+updateBtnSub();
 
 function formatCertField(o) {
   return [o.CN, o.O, o.L, o.ST, o.C].join(' ')
 }
 
 function validURL(str) {
-  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+    '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
   return !!pattern.test(str);
 }
 
 function validBitcoinAddress(str) {
   var pattern = new RegExp('^[a-zA-Z0-9]{34}$'); // fragment locator
   return !!pattern.test(str);
+}
+
+function updateBtnSub() {
+  elts.btnSub.disabled = !canCheckIdentity();
 }
 
 function canCheckIdentity() {
