@@ -9,6 +9,12 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  font-family: Montserrat,Arial,sans-serif;
+  font-size: 16px;
+}
+
+.page-header {
+  border:none;
 }
 
 .footer {
@@ -17,7 +23,7 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
+  background-color: #f8f9fa;
 }
 
 /* Custom page CSS
@@ -36,5 +42,62 @@ body {
 }
 
 .btcproof-text {
-  font-size: 12px;
+  font-size: 14px;
+}
+
+.alert-info {
+  background-color: #fff;
+  color: #343a40;
+  border-color: #fff;
+  box-shadow: 0 10px 40px 0 rgba(62,57,107,0.07), 0 2px 9px 0 rgba(62,57,107,0.06);
+  border-radius: 6px;
+}
+
+.alert-info > a {
+  color: #4814ad;
+}
+
+.glyphicon-circle-arrow-right {
+  color: #4814ad;
+}
+
+.btcproof-button {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #4814ad;
+  color: white;
+  cursor: pointer;
+  font-family: Montserrat,Arial,sans-serif;
+  font-size: 17px;
+  text-align: center;
+  font-weight: 600;
+  margin: 0;
+  padding: 18px 25px;
+  border-radius: 4px;
+  max-width: 100%;
+  box-shadow: 0 6px 6px 0 rgba(178, 178, 178, .33);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btcproof-button-check {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #f8f9fa;
+  color: #343a40;
+  cursor: pointer;
+  font-family: Montserrat,Arial,sans-serif;
+  font-size: 17px;
+  text-align: center;
+  font-weight: 600;
+  margin: 0;
+  padding: 8px 25px;
+  border-radius: 4px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-font-smoothing: antialiased;
 }

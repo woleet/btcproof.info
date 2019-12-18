@@ -47,64 +47,72 @@
 </head>
 
 <body>
-
 <div class="page-header">
   <div class="container">
-    <a href="https://www.woleet.io">
-      <img src="image/logo-woleet.png"/>
-    </a>
-    <h1 style="color: #258C90;">
-      Chainpoint proof verifier<br>
-      <small>Verify data and signatures anchored on Bitcoin</small>
-    </h1>
-    <small><a href="/identity">> identity verification page</a></small>
+    <div class="row">
+      <a href="https://www.woleet.io">
+        <img src="image/logo-woleet.png"/>
+      </a>
+      <h1 style="color: #05b8c0;">
+        Verify your proof<br>
+        <small>Check data and signatures anchored on Bitcoin</small>
+      </h1>
+    </div>
   </div>
 </div>
 
 <div class="container">
-  <div class="woleet-widget"></div>
-</div>
-
-<br>
-
-<div class="container">
-
-  <span class="glyphicon glyphicon-circle-arrow-right"></span>
-  verify the <strong>existence</strong> and <strong>get the timestamp</strong> of a file<br>
-  <span class="btcproof-text">anchored in the Bitcoin blockchain by any Chainpoint compatible tool.</span>
-
-  <br><br>
-
-  <span class="glyphicon glyphicon-circle-arrow-right"></span>
-  verify the <strong>existence</strong>, the <strong>validity</strong> and <strong>get the timestamp</strong> of the
-  <strong>signature</strong> of a file<br>
-  <span class="btcproof-text">anchored in the Bitcoin blockchain by any tool compatible with Woleet's
-    <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a>
-    extension to Chainpoint</span><br>
-  also verify the <strong><a href="/identity">signee identity</a></strong> if provided
-
-</div>
-
-<br>
-
-<div class="container">
-  <div class="alert alert-info" role="alert">
-    If the file or signature was anchored publicly using the <a href="https://app.woleet.io">Woleet platform</a>,
-    then you don't need to provide the proof receipt (as it is retrieved live from the Woleet platform).
-    Otherwise, you'll be asked to provide the Chainpoint proof receipt.
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="woleet-widget"></div>
+      <small style="font-size:12px;">
+        Chainpoint proof format</small>
+    </div>
   </div>
 </div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="alert alert-info" role="alert">
+      If the file or signature was anchored publicly using the <a href="https://app.woleet.io">Woleet platform</a>,
+      then you don't need to provide the proof receipt (as it is retrieved live from the Woleet platform).
+      Otherwise, you'll be asked to provide the <a href="https://doc.woleet.io/docs/frequently-asked-questions#section-what-is-a-proof-receipt">proof receipt</a> (Chainpoint format).
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    verify the <strong>existence</strong> and <strong>get the timestamp</strong> of a file<br>
+    anchored in the Bitcoin blockchain by any Chainpoint compatible tool.
+    <br><br>
+    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+    verify the <strong>existence</strong>, the <strong>validity</strong> and <strong>get the timestamp</strong> of the
+    <strong>signature</strong> of a file<br>
+    anchored in the Bitcoin blockchain by any tool compatible with Woleet's
+    <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a" style="color:#4814ad;">signature anchoring</a>
+    extension to Chainpoint</span> also verify the <strong><a href="/identity" style="color:#4814ad;">signee identity</a></strong> if provided
+  </div>
+</div>
+<br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <button class="btcproof-button"><a href="/identity" style="text-decoration: none; color:#fff;">Identity verification page</a></button>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <button class="btcproof-button" style="background-color:#05b8c0;"><a href="/identity" style="text-decoration: none; color:#fff;">Get your verification page</a></button>
+    </div>
+  </div>
+</div>
+<br>
 
-<a href="https://github.com/woleet/btcproof.info" target="_blank">
-  <img style="position: absolute; top: 0; right: 0; border: 0;"
-       src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-       alt="Fork me on GitHub"
-       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 <footer class="footer">
   <div class="container">
     <p class="text-muted" align="center">
-      This tool is gracefully provided to <a href="https://github.com/woleet/btcproof.info">the community</a>
-      by <a href="https://woleet.io">Woleet</a>
+      This tool is gracefully provided to <a href="https://github.com/woleet/btcproof.info" style="color:#4814ad;">the community</a>
+      by <a href="https://woleet.io" style="color:#4814ad;">Woleet</a>
     </p>
   </div>
 </footer>

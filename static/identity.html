@@ -42,15 +42,11 @@
 <div class="page-header">
   <div class="container">
     <img src="image/logo-woleet.png"/>
-    <h1 style="color: #258C90;">
+    <h1 style="color: #05b8c0;">
       Bitcoin identity verifier
       <br>
       <small>Verify ownership and identity of Bitcoin addresses</small>
     </h1>
-    <small>
-      <a href="/proof">
-        < proof verification page</a>
-    </small>
   </div>
 </div>
 
@@ -63,7 +59,7 @@
     <div class="form-group">
       <input type="text" class="form-control" id="identityURL" oninput="updateBtnSub()" placeholder="Identity URL" name="identityURL">
     </div>
-    <button type="button" class="btn btn-default" id="btnSub" onclick="checkIdentity()">
+    <button type="button" class="btcproof-button-check" id="btnSub" onclick="checkIdentity()">
       Check identity
     </button>
   </div>
@@ -75,7 +71,7 @@
   <strong>ownership</strong> of a Bitcoin address
   <br>
   <span class="btcproof-text">by using the owner's identity URL (see
-    <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a">signature anchoring</a>
+    <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a" style="color:#4814ad;">signature anchoring</a>
     extension to Chainpoint 1.x)
   </span>
 
@@ -129,20 +125,28 @@
 
 </div>
 
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <button class="btcproof-button"><a href="/proof" style="text-decoration: none; color:#fff;">Proof verification page</a></button>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <button class="btcproof-button" style="background-color:#05b8c0;">
+        <a href="https://github.com/woleet/btcproof.info" style="text-decoration: none; color:#fff;">Get your verification page</a>
+      </button>
+    </div>
+  </div>
+</div>
+
 <script src="js/woleet-identity.js"></script>
 
-<a href="https://github.com/woleet/btcproof.info" target="_blank">
-  <img style="position: absolute; top: 0; right: 0; border: 0;"
-    src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-    alt="Fork me on GitHub"
-    data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
-</a>
 <footer class="footer">
   <div class="container">
     <p class="text-muted" align="center">This tool is gracefully provided to
-      <a href="https://github.com/woleet/btcproof.info">
+      <a href="https://github.com/woleet/btcproof.info" style="color:#4814ad;">
         the community</a> by
-      <a href="https://woleet.io">Woleet</a>
+      <a href="https://woleet.io" style="color:#4814ad;">Woleet</a>
     </p>
   </div>
 </footer>
