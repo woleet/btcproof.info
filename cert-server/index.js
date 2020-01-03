@@ -33,10 +33,9 @@ function formatCerts(cert, prev) {
 
 const getSslDetails = (host, port) => new Promise((resolve, reject) => {
 
-  const sock = tls.connect({ rejectUnauthorized: false, port, host }, () => {
+  const sock = tls.connect({ rejectUnauthorized: false, servername: host, port, host }, () => {
     const certs = sock.getPeerCertificate(true);
 
-    // delete certs.issuerCertificate.issuerCertificate;
     resolve({
       authorized: sock.authorized,
       error: sock.authorized ? undefined : sock.authorizationError,
