@@ -1,20 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Chainpoint proof verifier</title>
+  <title>Woleet proof verifier</title>
 
   <meta charset="UTF-8">
-  <meta name="description" content="Verify data and signatures anchored on Bitcoin"/>
+  <meta name="description" content="Check the timestamp and the signatures of a file"/>
   <meta name="keywords" content="verify,Chainpoint,proof,existence,signature,validity,data,timestamping"/>
   <meta name="author" content="Woleet SAS"/>
-
-  <!-- IE ZONE -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <script type="text/javascript">
-    if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent))
-      document.write('<script src="node_modules/@babel/polyfill/dist/polyfill.js"><\/script>');
-  </script>
-  <!-- END IE ZONE -->
 
   <script src="../node_modules/@babel/polyfill/dist/polyfill.js"></script>
   <script src="node_modules/@woleet/woleet-weblibs/dist/woleet-weblibs.min.js"></script>
@@ -49,61 +42,48 @@
 <body>
 <div class="page-header">
   <div class="container">
-    <div class="row">
       <a href="https://www.woleet.io">
         <img src="image/logo-woleet.png"/>
       </a>
       <h1 style="color: #05b8c0;">
-        Verify your proof<br>
-        <small>Check data and signatures anchored on Bitcoin</small>
+        Proof verifier<br>
+        <small>Check the timestamp and the signatures of a file</small>
       </h1>
-    </div>
   </div>
 </div>
 
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <div class="woleet-widget"></div>
-      <small style="font-size:12px;">
-        Chainpoint proof format</small>
-    </div>
-  </div>
+  <div class="woleet-widget"></div>
 </div>
 <br>
 <div class="container">
-  <div class="row">
     <div class="alert alert-info" role="alert">
-      If the file or signature was anchored publicly using the <a href="https://app.woleet.io">Woleet platform</a>,
+      If the file was proved publicly using the <a href="https://app.woleet.io">Woleet platform</a>,
       then you don't need to provide the proof receipt (as it is retrieved live from the Woleet platform).
-      Otherwise, you'll be asked to provide the <a href="https://doc.woleet.io/docs/frequently-asked-questions#section-what-is-a-proof-receipt">proof receipt</a> (Chainpoint format).
+      Otherwise, you'll be asked to provide the <a href="https://doc.woleet.io/docs/frequently-asked-questions#section-what-is-a-proof-receipt">proof receipt</a>
+      in the Chainpoint format.
     </div>
-  </div>
 </div>
 <br>
 <div class="container">
-  <div class="row">
-    <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    verify the <strong>existence</strong> and <strong>get the timestamp</strong> of a file<br>
-    anchored in the Bitcoin blockchain by any Chainpoint compatible tool.
-    <br><br>
-    <span class="glyphicon glyphicon-circle-arrow-right"></span>
-    verify the <strong>existence</strong>, the <strong>validity</strong> and <strong>get the timestamp</strong> of the
-    <strong>signature</strong> of a file<br>
-    anchored in the Bitcoin blockchain by any tool compatible with Woleet's
-    <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a" style="color:#4814ad;">signature anchoring</a>
-    extension to Chainpoint</span> also verify the <strong><a href="/identity" style="color:#4814ad;">signee identity</a></strong> if provided
-  </div>
+  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+  verify the <strong>existence</strong> and <strong>get the timestamp</strong> of a file<br>
+  anchored in the Bitcoin blockchain by any Chainpoint compatible tool.
+  <br><br>
+  <span class="glyphicon glyphicon-circle-arrow-right"></span>
+  verify the <strong>existence</strong>, the <strong>validity</strong> and <strong>get the timestamp</strong> of a
+  <strong>signature</strong> of a file<br>
+  anchored in the Bitcoin blockchain by any tool compatible with Woleet's
+  <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a" style="color:#4814ad;">signature anchoring</a>
+  extension to Chainpoint</span> (also verify the <strong><a href="/identity" style="color:#4814ad;">signatory identity</a></strong> if provided)
 </div>
 <br><br>
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <button class="btcproof-button"><a href="/identity" style="text-decoration: none; color:#fff;">Identity verification page</a></button>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <button class="btcproof-button" style="background-color:#05b8c0;"><a href="/identity" style="text-decoration: none; color:#fff;">Get your verification page</a></button>
-    </div>
+  <div class="col-md-6">
+    <a href="/identity">Identity verification page</a>
+  </div>
+  <div class="col-md-6">
+    <a href="/identity">Build your own verification page</a>
   </div>
 </div>
 <br>
@@ -117,4 +97,5 @@
   </div>
 </footer>
 </body>
+
 </html>

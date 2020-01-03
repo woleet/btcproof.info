@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <title>Bitcoin identity verifier</title>
+  <title>Woleet identity verifier</title>
 
   <meta charset="UTF-8">
-  <meta name="description" content="Verify ownership and identity of Bitcoin addresses"/>
+  <meta name="description" content="Check the ownership and identity of Bitcoin addresses"/>
   <meta name="keywords" content="verify,Bitcoin,address,ownership,identity"/>
   <meta name="author" content="Woleet SAS"/>
 
@@ -13,8 +13,7 @@
 
   <!-- Latest compiled and minified Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   <!-- Custom styles for this template -->
   <link href="css/custom.css" rel="stylesheet">
@@ -38,14 +37,14 @@
 </head>
 
 <body>
-
 <div class="page-header">
   <div class="container">
-    <img src="image/logo-woleet.png"/>
+    <a href="https://www.woleet.io">
+      <img src="image/logo-woleet.png"/>
+    </a>
     <h1 style="color: #05b8c0;">
-      Bitcoin identity verifier
-      <br>
-      <small>Verify ownership and identity of Bitcoin addresses</small>
+      Identity verifier<br>
+      <small>Check the ownership and identity of Bitcoin addresses</small>
     </h1>
   </div>
 </div>
@@ -59,7 +58,7 @@
     <div class="form-group">
       <input type="text" class="form-control" id="identityURL" oninput="updateBtnSub()" placeholder="Identity URL" name="identityURL">
     </div>
-    <button type="button" class="btcproof-button-check" id="btnSub" onclick="checkIdentity()">
+    <button type="button" class="btn btn-default" id="btnSub" onclick="checkIdentity()">
       Check identity
     </button>
   </div>
@@ -67,21 +66,17 @@
   <br>
 
   <span class="glyphicon glyphicon-circle-arrow-right"></span>
-  verify the
-  <strong>ownership</strong> of a Bitcoin address
-  <br>
+  verify the <strong>ownership</strong> of a Bitcoin address<br>
   <span class="btcproof-text">by using the owner's identity URL (see
     <a href="https://medium.com/@woleet/beyond-data-anchoring-bee867d9be3a" style="color:#4814ad;">signature anchoring</a>
-    extension to Chainpoint 1.x)
+    extension to Chainpoint)
   </span>
 
   <br>
   <br>
 
   <span class="glyphicon glyphicon-circle-arrow-right"></span>
-  get the
-  <strong>identity</strong> of the owner of a Bitcoin address
-  <br>
+  get the <strong>identity</strong> of the owner of a Bitcoin address<br>
   <span class="btcproof-text">by extracting it from the TLS certificate of the owner's identity URL</span>
 
 </div>
@@ -127,15 +122,11 @@
 
 <br>
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <button class="btcproof-button"><a href="/proof" style="text-decoration: none; color:#fff;">Proof verification page</a></button>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <button class="btcproof-button" style="background-color:#05b8c0;">
-        <a href="https://github.com/woleet/btcproof.info" style="text-decoration: none; color:#fff;">Get your verification page</a>
-      </button>
-    </div>
+  <div class="col-md-6">
+    <a href="/proof">Proof verification page</a>
+  </div>
+  <div class="col-md-6">
+    <a href="https://github.com/woleet/btcproof.info">Build your own verification page</a>
   </div>
 </div>
 
@@ -143,10 +134,9 @@
 
 <footer class="footer">
   <div class="container">
-    <p class="text-muted" align="center">This tool is gracefully provided to
-      <a href="https://github.com/woleet/btcproof.info" style="color:#4814ad;">
-        the community</a> by
-      <a href="https://woleet.io" style="color:#4814ad;">Woleet</a>
+    <p class="text-muted" align="center">
+      This tool is gracefully provided to <a href="https://github.com/woleet/btcproof.info" style="color:#4814ad;">the community</a>
+      by <a href="https://woleet.io" style="color:#4814ad;">Woleet</a>
     </p>
   </div>
 </footer>
