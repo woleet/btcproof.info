@@ -1,4 +1,4 @@
-FROM nginx:1.15.0-alpine
+FROM nginx:1.19.10
 
 WORKDIR /
 
